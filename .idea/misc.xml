@@ -3,8 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/red_back_white_sroke.xml" value="0.2175" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/red_back_white_stroke.xml" value="0.219" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/spinner_bg.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/spinner_sla.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/test.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/white_back_black_stroke.xml" value="0.219" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main2.xml" value="0.1734375" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main_d.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main_di.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main_dialog.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/add_location_dialog.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/spinner_custom_textview.xml" value="0.34427083333333336" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/test.xml" value="0.1734375" />
       </map>
     </option>

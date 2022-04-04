@@ -1,4 +1,4 @@
-package com.example.mapview_test;
+package com.sna.esis;
 
 import android.content.Context;
 
