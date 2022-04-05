@@ -12,4 +12,6 @@
     <color name="mapboxBlue">#4264fb</color>
     <color name="mapboxGrayLight">#c6d2e1</color>
     <color name="red">#D5281B</color>
+    <color name="gray_deep">#252222</color>
+    <color name="gray_light">#E8999B9C</color>
 </resources>

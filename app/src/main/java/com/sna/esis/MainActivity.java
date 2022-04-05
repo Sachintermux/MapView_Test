@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -22,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView mainMenu, addLocation;
     private PopupMenu popupMenu;
     private FireBaseDataSendOrReceive fireBaseDataSendOrReceive;
+    private String currentParentNodeName;
+    private int currentParentNodeKey = 0;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void mapBoxIsLoaded(){
+    private void mapBoxIsLoaded() {
         viewModelObservers();
         fireBaseDataSendOrReceive = new FireBaseDataSendOrReceive(MainActivity.this, viewModel);
         fireBaseDataSendOrReceive.getRootNamesData("Path");
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+
     private void AllClicksHandle() {
         mainMenu.setOnClickListener(this::mainMenuIc_click);
         popupMenu.setOnMenuItemClickListener(this::popUpMenuClick);
@@ -111,15 +112,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_location_dialog);
         Spinner spinner = dialog.findViewById(R.id.spinner_addLocationDialog);
-        HashMap<Integer,String> hashMap =  viewModel.parentNode_hashMap.getValue();
+        HashMap<Integer, String> hashMap = viewModel.parentNode_hashMap.getValue();
         String[] nameList = new String[hashMap.size()];
-        for(int i=0; i<hashMap.size(); i++){
+        for (int i = 0; i < hashMap.size(); i++) {
             nameList[i] = hashMap.get(i);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, nameList);
-        adapter.setDropDownViewResource(R.layout.spinner_custom_textview);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
+        spinner.setSelection(currentParentNodeKey);
         dialog.show();
     }
 
@@ -153,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (int i = 0; i < value.size(); i++) {
             if (data.equals(value.get(i))) {
                 fireBaseDataSendOrReceive.getLowerNodeData(i, data);
+                currentParentNodeKey = i;
+                currentParentNodeName = data;
                 return false;
             }
         }
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void setMakerOnMap( ArrayList<LocationSpeedLimitModels> limitModelsList ) {
 
-        if(markers_hashMap.size() > 0){
+        if (markers_hashMap.size() > 0) {
             mapboxMap.removeAnnotations();
         }
         for (int i = 0; i < limitModelsList.size(); i++) {
@@ -213,20 +216,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             markers_hashMap.put(marker, limitModelsList.get(i));
             mapboxMap.addMarker(markerOptions);
         }
-        if(mapboxMap != null)
-        mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick( @NonNull Marker marker ) {
-                for (LocationSpeedLimitModels models : limitModelsList) {
-                    if (Double.valueOf(models.getLatitude()) == marker.getPosition().getLatitude() &&
-                            Double.valueOf(models.getLongitude()) == marker.getPosition().getLongitude()) {
+        if (mapboxMap != null)
+            mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick( @NonNull Marker marker ) {
+                    for (LocationSpeedLimitModels models : limitModelsList) {
+                        if (Double.valueOf(models.getLatitude()) == marker.getPosition().getLatitude() &&
+                                Double.valueOf(models.getLongitude()) == marker.getPosition().getLongitude()) {
 //                        Log.d(TAG, "onMarkerClick: " + marker.getPosition().getLongitude() + "  " + marker.getPosition().getLatitude());
 //                        Log.d(TAG, "onMarkerClick: Speed  =" + models.getSpeedLimit());
+                        }
                     }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
     }
 
