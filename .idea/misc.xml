@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/closelocation_btndesing.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_location.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_menu.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/oval_white.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/red_back_white_sroke.xml" value="0.2175" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/red_back_white_stroke.xml" value="0.219" />

@@ -2,6 +2,7 @@ package com.sna.esis;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.location.Location;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
@@ -44,6 +47,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.sna.esis.data.FireBaseDataSendOrReceive;
+import com.sna.esis.data.GetDistanceBetweenTwoPoint;
 import com.sna.esis.view_models.MainActivity_ViewModel;
 
 import java.util.ArrayList;
@@ -53,11 +57,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
     private final Handler handler = new Handler();
-    LocationEngine locationEngine;
+    private LocationEngine locationEngine;
     private MapView mapView;
     private MapboxMap mapboxMap;
     private PermissionsManager permissionsManager;
-    private TextView currentSpeed_txt;
+    private TextView currentSpeed_txt, maxSpeedLimit_txt;
     private LocationComponent locationComponent;
     private float zoomLevel = 7f;
     private ArrayList<LocationSpeedLimitModels> limitModelsList = new ArrayList<>();
@@ -68,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FireBaseDataSendOrReceive fireBaseDataSendOrReceive;
     private String currentParentNodeName;
     private int currentParentNodeKey = 0;
+    private GetDistanceBetweenTwoPoint getDistanceBetweenTwoPoint = new GetDistanceBetweenTwoPoint();
+    private boolean startFlag = true;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -83,6 +89,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    private void setMaxSpeedLimit_txt() {
+        limitModelsList = viewModel.locationList.getValue();
+        if (limitModelsList.size() > 0 && markers_hashMap.size() > 0) {
+            int j = 0;
+            double minDistance = Integer.MAX_VALUE;
+            for (int i = 0; i < limitModelsList.size(); i++) {
+                Location location = mapboxMap.getLocationComponent().getLastKnownLocation();
+
+                double currentDistance = getDistanceBetweenTwoPoint.haversine(location.getLatitude(), location.getLongitude(),
+                        Double.parseDouble(limitModelsList.get(i).getLatitude()), Double.parseDouble(limitModelsList.get(i).getLongitude()));
+                if(startFlag || currentDistance < 0.15) {
+                    if (minDistance >= currentDistance) {
+                        minDistance = currentDistance;
+                        j = i;
+                    }
+                }
+            }
+            if( j != Integer.MAX_VALUE) {
+                maxSpeedLimit_txt.setText(String.valueOf(limitModelsList.get(j).getSpeedLimit()));
+                startFlag = !(Double.parseDouble(maxSpeedLimit_txt.getText().toString()) > 0);
+            }
+        }
+    }
+
     private void mapBoxIsLoaded() {
         viewModelObservers();
         fireBaseDataSendOrReceive = new FireBaseDataSendOrReceive(MainActivity.this, viewModel);
@@ -96,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView = findViewById(R.id.mapView);
         mainMenu = findViewById(R.id.menu_ic_main);
         addLocation = findViewById(R.id.addLocationIc_main);
+        maxSpeedLimit_txt = findViewById(R.id.maxSpeedLimit_txt);
         viewModel = new ViewModelProvider(this).get(MainActivity_ViewModel.class);
         popupMenu = new PopupMenu(MainActivity.this, mainMenu);
 
@@ -112,16 +143,52 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_location_dialog);
         Spinner spinner = dialog.findViewById(R.id.spinner_addLocationDialog);
-        HashMap<Integer, String> hashMap = viewModel.parentNode_hashMap.getValue();
-        String[] nameList = new String[hashMap.size()];
-        for (int i = 0; i < hashMap.size(); i++) {
-            nameList[i] = hashMap.get(i);
+        EditText locationNumber_edt = dialog.findViewById(R.id.locationNumberEDT_addLocationD),
+                speedLimit_edt = dialog.findViewById(R.id.speedLimitEDT_addLocationD);
+        Button saveBtn = dialog.findViewById(R.id.saveBtn_addLocationD),
+                closeBtn = dialog.findViewById(R.id.closeBtn_addLocationD);
+        ArrayList<FireBaseDataModels> fireBaseDataModels = viewModel.firebaseDataModels.getValue();
+        String[] nameList = new String[fireBaseDataModels.size()];
+        for (int i = 0; i < nameList.length; i++) {
+            nameList[i] = fireBaseDataModels.get(i).getParentRootNodeName();
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, nameList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(currentParentNodeKey);
         dialog.show();
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick( View view ) {
+                dialog.cancel();
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick( View view ) {
+                if(locationNumber_edt.getText().toString().length() == 0 ) {
+                    locationNumber_edt.setError("Please Enter Location Number");
+                    return;
+                }
+                if(speedLimit_edt.getText().toString().length() == 0){
+                    speedLimit_edt.setError("Please Enter the Speed Limit");
+                    return;
+                }
+                String rootName = nameList[spinner.getSelectedItemPosition()];
+                for(FireBaseDataModels fireBaseDataModels1 : fireBaseDataModels){
+                    if(fireBaseDataModels1.getParentRootNodeName().endsWith(rootName)){
+                        LatLng latLng = new LatLng(mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude(),
+                                mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude());
+                        fireBaseDataSendOrReceive.sendData(fireBaseDataModels1,latLng,locationNumber_edt.getText().toString(),
+                                Double.valueOf(speedLimit_edt.getText().toString()));
+                    }
+                }
+                dialog.cancel();
+                Toast.makeText(MainActivity.this, "Thanks For Adding Location",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void mainMenuIc_click( View view ) {
@@ -129,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void viewModelObservers() {
-        viewModel.parentNode_hashMap.observe(this, value -> {
+        viewModel.firebaseDataModels.observe(this, value -> {
             setPopUpMenu(value);
         });
         viewModel.locationList.observe(this, value -> {
@@ -138,10 +205,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-    private void setPopUpMenu( HashMap<Integer, String> hashMap ) {
+    private void setPopUpMenu( ArrayList<FireBaseDataModels> fireBaseDataModels ) {
         popupMenu.getMenu().clear();
-        for (int i = 0; i < hashMap.size(); i++) {
-            String rootName = hashMap.get(i);
+        for (int i = 0; i < fireBaseDataModels.size(); i++) {
+            String rootName = fireBaseDataModels.get(i).getParentRootNodeName();
             popupMenu.getMenu().add(rootName);
         }
     }
@@ -149,10 +216,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean popUpMenuClick( MenuItem menuItem ) {
         int key = 0;
 //        getDataFromFireBase();
-        HashMap<Integer, String> value = viewModel.parentNode_hashMap.getValue();
+       ArrayList<FireBaseDataModels> value = viewModel.firebaseDataModels.getValue();
         String data = menuItem.getTitle().toString();
         for (int i = 0; i < value.size(); i++) {
-            if (data.equals(value.get(i))) {
+            if (data.equals(value.get(i).getParentRootNodeName())) {
                 fireBaseDataSendOrReceive.getLowerNodeData(i, data);
                 currentParentNodeKey = i;
                 currentParentNodeName = data;
@@ -202,6 +269,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void setMakerOnMap( ArrayList<LocationSpeedLimitModels> limitModelsList ) {
 
         if (markers_hashMap.size() > 0) {
@@ -238,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void run() {
                 currentSpeed_txt.setText(String.valueOf((int) (locationComponent.getLastKnownLocation().getSpeed() * 3.6)));
+                setMaxSpeedLimit_txt();
                 handler.postDelayed(this, 1000);
             }
         }.run();
