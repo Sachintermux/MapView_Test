@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "440303544344",
+    "firebase_url": "https://sna-esis-default-rtdb.firebaseio.com",
+    "project_id": "sna-esis",
+    "storage_bucket": "sna-esis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440303544344:android:cc9f0902b447232d597b6d",
+        "android_client_info": {
+          "package_name": "com.example.mapview_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440303544344-7uas7dcm607fe8ddlusvakhc8svjj88c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNsP8Jap0sxHwc77a5qqUbnDrsQ0MFSnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440303544344-7uas7dcm607fe8ddlusvakhc8svjj88c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
