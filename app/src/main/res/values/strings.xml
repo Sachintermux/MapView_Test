@@ -3,4 +3,6 @@
     <string name="access_token">sk.eyJ1Ijoic2FjaGlua3VtYXIyNzEiLCJhIjoiY2wwdGc4NDcxMGxnYjNjbm04bmZuNWpsbCJ9.mTMFthgWoWnj7JIN3_QkGQ</string>
     <string name="user_location_permission_explanation">100</string>
     <string name="user_location_permission_not_granted">122</string>
+    <string name="nav_open">Nav_Open</string>
+    <string name="nav_close">Nav_Close</string>
 </resources>

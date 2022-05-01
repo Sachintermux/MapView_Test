@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -32,13 +33,13 @@ public class FireBaseDataSendOrReceive {
         this.viewModel = viewModel;
     }
 
-    public void sendData( FireBaseDataModels models, LatLng latLng, String locationNumber, double speedLimit ) {
+    public void sendData( FireBaseDataModels models, LatLng latLng, String locationNumber, double speedLimit,String typePosition ) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
         HashMap<String, Double> hashMap = new HashMap<>();
         hashMap.put("Latitude", latLng.getLatitude());
         hashMap.put("Longitude", latLng.getLongitude());
-        SendFirebaseLocationModels sendFirebaseLocationModels = new SendFirebaseLocationModels(locationNumber, speedLimit, hashMap);
+        SendFirebaseLocationModels sendFirebaseLocationModels = new SendFirebaseLocationModels(locationNumber, speedLimit, hashMap,typePosition);
         databaseReference.child(path).child(String.valueOf(models.getParentRootNodeKey()))
                 .child(String.valueOf(models.getChildRootNodeLength())).setValue(sendFirebaseLocationModels);
 
@@ -98,7 +99,13 @@ public class FireBaseDataSendOrReceive {
                             String SpeedLimit = snapshot1.child("SpeedLimit").getValue().toString();
                             String latitude = snapshot1.child("Location").child("Latitude").getValue().toString();
                             String longitude = snapshot1.child("Location").child("Longitude").getValue().toString();
-                            limitModelsList.add(new LocationSpeedLimitModels(ParentNodeName, Name, SpeedLimit, latitude, longitude, ParentNodeName));
+                            String Type = "1";
+                            try {
+                                Type = snapshot1.child("Type").getValue().toString();
+                            }catch (DatabaseException e){
+                                System.out.println("ERROR   =" + e);
+                            }
+                            limitModelsList.add(new LocationSpeedLimitModels(ParentNodeName, Name, SpeedLimit, latitude, longitude, ParentNodeName,Type));
                         }
                     }
                     viewModel.setLocationList(limitModelsList);

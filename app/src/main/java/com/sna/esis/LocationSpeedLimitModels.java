@@ -8,22 +8,33 @@ public class LocationSpeedLimitModels {
     private String Latitude;
     private String Longitude;
     private String ParentRooNodeKey;
+    private String Type;
 
-    public LocationSpeedLimitModels( String rootName, String nameLocation, String speedLimit, String latitude, String longitude ) {
+    public LocationSpeedLimitModels( String rootName, String nameLocation, String speedLimit, String latitude, String longitude , String type) {
         RootName = rootName;
         NameLocation = nameLocation;
         SpeedLimit = speedLimit;
         Latitude = latitude;
         Longitude = longitude;
+        Type = type;
     }
 
-    public LocationSpeedLimitModels( String rootName, String nameLocation, String speedLimit, String latitude, String longitude, String parentRooNodeKey ) {
+    public LocationSpeedLimitModels( String rootName, String nameLocation, String speedLimit, String latitude, String longitude, String parentRooNodeKey, String type ) {
         RootName = rootName;
         NameLocation = nameLocation;
         SpeedLimit = speedLimit;
         Latitude = latitude;
         Longitude = longitude;
         ParentRooNodeKey = parentRooNodeKey;
+        Type = type;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType( String type ) {
+        Type = type;
     }
 
     public String getParentRooNodeKey() {
@@ -76,3 +87,4 @@ public class LocationSpeedLimitModels {
 
 
 }
+

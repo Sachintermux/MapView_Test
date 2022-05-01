@@ -9,15 +9,29 @@ public class SendFirebaseLocationModels {
     private String mName;
     private Double mSpeedLimit;
     private HashMap<String, Double> mLocation;
+    private String mType;
+
+
+
+    @PropertyName("Type")
+    public String getmType() {
+        return mType;
+    }
+
+    @PropertyName("Type")
+    public void setmType( String mType ) {
+        this.mType = mType;
+    }
 
     public SendFirebaseLocationModels() {
 
     }
 
-    public SendFirebaseLocationModels( String mName, Double mSpeedLimit, HashMap<String, Double> mLocation ) {
+    public SendFirebaseLocationModels( String mName, Double mSpeedLimit, HashMap<String, Double> mLocation,String mType ) {
         this.mName = mName;
         this.mSpeedLimit = mSpeedLimit;
         this.mLocation = mLocation;
+        this.mType = mType;
     }
 
     @PropertyName("Name")
@@ -48,5 +62,9 @@ public class SendFirebaseLocationModels {
     @PropertyName("Location")
     public void setmLocation( HashMap<String, Double> mLocation ) {
         this.mLocation = mLocation;
+    }
+
+    public static void main( String[] args ) {
+        System.out.println("Hello");
     }
 }

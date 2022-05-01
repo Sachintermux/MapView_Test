@@ -4,7 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/back_black.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/closelocation_btndesing.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/dialog_box_round_corner.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/dialog_box_round_corner_very_high.xml" value="0.268" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/gray_back_black_stroke.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/gray_back_blue_stroke.xml" value="0.2685" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_close.xml" value="0.268" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_location.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/ic_menu.xml" value="0.2685" />
@@ -16,14 +22,18 @@
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/spinner_sla.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/test.xml" value="0.2685" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/drawable/white_back_black_stroke.xml" value="0.219" />
-        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main2.xml" value="0.1734375" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main_d.xml" value="0.34427083333333336" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main_di.xml" value="0.34427083333333336" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/activity_main_dialog.xml" value="0.34427083333333336" />
-        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/add_location_dialog.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/add_location_dialog.xml" value="0.33" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/show_roots_listview.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/showautomet_location_dialog.xml" value="0.33" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/spinner_custom_textview.xml" value="0.34427083333333336" />
         <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/layout/test.xml" value="0.1734375" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/menu/test.xml" value="0.34427083333333336" />
+        <entry key="..\:/SNA Internship/MapView_Test/app/src/main/res/mipmap-anydpi-v26/ic_add_location.xml" value="0.182" />
       </map>
     </option>
   </component>

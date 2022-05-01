@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_box_round_corner"
+    android:padding="40dp">
+
+    <ImageView
+        android:id="@+id/locationBox_showAutomateD"
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:src="@drawable/ic_biglocation" />
+
+    <TextView
+        android:id="@+id/locationName_showAutomateD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="YOU ARE AT"
+        android:textAllCaps="true"
+        android:textColor="@color/gray_deep"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="Your new speed limit is"
+        android:textAllCaps="true"
+        android:textColor="@color/gray_deep"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/speedLimitName_showAutomateD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="50 kmph"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="49sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="it will automatically get close\nin - 5 second"
+        android:textAllCaps="true"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:id="@+id/countDownSecond_txt_showAutomateD"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/closeBtn_showAutomateD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/savelocation_btndesing"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:text="Close"
+        android:textColor="@color/white" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
